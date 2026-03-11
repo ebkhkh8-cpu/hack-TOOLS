@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Control Panel</title>
+
+<style>
+
+body{
+margin:0;
+font-family: "Courier New", monospace;
+background:black;
+color:#00ff9c;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* matrix canvas */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* панель */
+
+.panel{
+width:350px;
+padding:35px;
+
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+
+border:1px solid #00ff9c;
+border-radius:15px;
+
+box-shadow:
+0 0 20px #00ff9c,
+inset 0 0 20px rgba(0,255,156,0.2);
+}
+
+/* заголовок */
+
+.title{
+text-align:center;
+font-size:26px;
+margin-bottom:20px;
+text-shadow:0 0 10px #00ff9c;
+}
+
+/* поиск */
+
+.search{
+width:100%;
+padding:12px;
+
+background:black;
+border:1px solid #00ff9c;
+border-radius:8px;
+
+color:#00ff9c;
+font-size:16px;
+
+margin-bottom:20px;
+}
+
+.search:focus{
+outline:none;
+box-shadow:0 0 10px #00ff9c;
+}
+
+/* кнопки */
+
+.buttons{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.button{
+
+padding:14px;
+font-size:17px;
+
+border:2px solid #00ff9c;
+background:transparent;
+
+color:#00ff9c;
+border-radius:8px;
+
+cursor:pointer;
+
+transition:0.35s;
+}
+
+.button:hover{
+
+background:#00ff9c;
+color:black;
+
+box-shadow:
+0 0 10px #00ff9c,
+0 0 30px #00ff9c,
+0 0 60px #00ff9c;
+
+transform:translateY(-3px) scale(1.03);
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="panel">
+
+<div class="title">CYBER PANEL</div>
+
+<input class="search" placeholder="Search module..." onkeyup="searchButtons()">
+
+<div class="buttons">
+
+<button class="button" onclick="window.open('https://t.me/c/3798064051/3','_blank')">
+DoS for pc
+</button>
+
+<button class="button" onclick="window.open('https://t.me/c/3798064051/14','_blank')">
+Viruses pc
+</button>
+
+<button class="button" onclick="window.open('https://t.me/c/3798064051/15','_blank')">
+Yarik Virus PC
+</button>
+
+</div>
+</div>
+
+<script>
+
+/* поиск */
+
+function searchButtons(){
+
+let input=document.querySelector(".search").value.toLowerCase()
+let buttons=document.querySelectorAll(".button")
+
+buttons.forEach(btn=>{
+let text=btn.textContent.toLowerCase()
+
+btn.style.display=text.includes(input) ? "block" : "none"
+
+})
+
+}
+
+/* matrix rain */
+
+const canvas=document.getElementById("matrix")
+const ctx=canvas.getContext("2d")
+
+canvas.height=window.innerHeight
+canvas.width=window.innerWidth
+
+const letters="01アイウエオカキクケコサシスセソ"
+const matrix=letters.split("")
+
+const fontSize=16
+const columns=canvas.width/fontSize
+
+const drops=[]
+
+for(let x=0;x<columns;x++)
+drops[x]=1
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#00ff9c"
+ctx.font=fontSize+"px monospace"
+
+for(let i=0;i<drops.length;i++){
+
+const text=matrix[Math.floor(Math.random()*matrix.length)]
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize)
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0
+
+drops[i]++
+
+}
+
+}
+
+setInterval(draw,35)
+
+</script>
+
+</body>
+</html>
